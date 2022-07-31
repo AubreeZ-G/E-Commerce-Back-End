@@ -61,38 +61,39 @@ router.post('/tag', async (req, res) => {
     // create a new tag
   });
 
-router.put('/tag/:id', async (req, res) => {
-  Tag.update(
+  router.put('/tag/:id', async (req, res) => {
+    Tag.update(
+      {
+      tag_name: req.body.tag_name,
+      id: req.body.id
+    },
     {
-    tag_name: req.body.tag_name,
-    id: req.body.id
-  },
-  {
-    // Gets the books based on the isbn given in the request parameters
-    where: {
-      id: req.params.id,
-    },
-  }
-)
-  .then((updatedTag) => {
-    // Sends the updated book as a json response
-    res.json(updatedTag);
-  })
-  .catch((err) => res.json(err));
-  // update a tag's name by its `id` value
-});
-
-router.delete('/tag/:id', async (req, res) => {
-  // delete on tag by its `id` value
-  Tag.destroy({
-    where: {
-      id: req.params.id,
-    },
-  })
-    .then((deletedTag) => {
-      res.json(deletedTag);
+      // Gets the books based on the isbn given in the request parameters
+      where: {
+        id: req.params.id,
+      },
+    }
+  )
+    .then((updatedTag) => {
+      // Sends the updated book as a json response
+      res.json(updatedTag);
     })
     .catch((err) => res.json(err));
-});
-
-module.exports = router;
+    // update a tag's name by its `id` value
+  });
+  
+  router.delete('/tag/:id', async (req, res) => {
+    // delete on tag by its `id` value
+    Tag.destroy({
+      where: {
+        id: req.params.id,
+      },
+    })
+      .then((deletedTag) => {
+        res.json(deletedTag);
+      })
+      .catch((err) => res.json(err));
+  });
+  
+  module.exports = router;
+  
